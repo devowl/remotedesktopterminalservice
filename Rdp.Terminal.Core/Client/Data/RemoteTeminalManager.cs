@@ -39,9 +39,22 @@ namespace Rdp.Terminal.Core.Client.Data
         }
 
         /// <inheritdoc/>
+        public bool SmartSizing
+        {
+            get
+            {
+                return _axRdpViewer.SmartSizing;
+            }
+
+            set
+            {
+                _axRdpViewer.SmartSizing = value;
+            }
+        }
+
+        /// <inheritdoc/>
         public void Connect(string connectionString, string groupName, string passowrd)
         {
-            _axRdpViewer.SmartSizing = true;
             _axRdpViewer.Connect(connectionString, groupName, passowrd);
         }
 

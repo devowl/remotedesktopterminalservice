@@ -1,29 +1,98 @@
-﻿using RDPCOMAPILib;
+﻿using System;
+
+using RDPCOMAPILib;
 
 namespace Rdp.Terminal.Core.Server
 {
     /// <summary>
     /// RDP server hosting provider.
     /// </summary>
-    public class RdpSessionServer
+    public class RdpSessionServer : IDisposable
     {
-        private RDPSession _rdpSession;
-        
         /// <summary>
-        /// Start server hosting.
+        /// https://msdn.microsoft.com/en-us/library/aa373307(v=vs.85).aspx.
+        /// </summary>
+        private readonly RDPSession _rdpSession;
+
+        /// <summary>
+        /// Constructor <see cref="RdpSessionServer"/>.
+        /// </summary>
+        public RdpSessionServer()
+        {
+            _rdpSession = new RDPSession { colordepth = 8 };
+            _rdpSession.add_OnAttendeeConnected(OnAttendeeConnected);
+        }
+
+        /// <summary>
+        /// Puts the session in an active state and starts listening to incoming connections.
         /// </summary>
         public void Open()
         {
-            if (_rdpSession == null)
+            _rdpSession.Open();
+        }
+
+        /// <summary>
+        /// The enabled state of the application filter.
+        /// </summary>
+        public bool ApplicationFilterEnabled
+        {
+            get
             {
-                _rdpSession = new RDPSession { colordepth = 8 };
-                _rdpSession.add_OnAttendeeConnected(OnAttendeeConnected);
-                _rdpSession.Open();
+                return _rdpSession.ApplicationFilter.Enabled;
             }
-            else
+
+            set
             {
-                _rdpSession.Resume();
+                _rdpSession.ApplicationFilter.Enabled = value;
             }
+        }
+
+        /// <summary>
+        /// The list of sharable applications.
+        /// </summary>
+        /// <remarks>
+        /// Attention! <see cref="ApplicationFilterEnabled"/> should be TRUE.
+        /// </remarks>
+        public RDPSRAPIApplicationList ApplicationList
+        {
+            get
+            {
+                return _rdpSession.ApplicationFilter.Applications;
+            }
+        }
+        
+        /// <summary>
+        /// Puts the session in an inactive state, closes all attendees, and stops listening to new incoming connections.
+        /// </summary>
+        public void Close()
+        {
+            _rdpSession.Close();
+        }
+
+        /// <summary>
+        /// Pauses the encoding of the sharer's desktop to pause sending graphics updates to all viewers.
+        /// </summary>
+        public void Pause()
+        {
+            _rdpSession.Pause();
+        }
+
+        /// <summary>
+        /// Resumes the encoding of the sharer's desktop to resume sending graphics updates to all viewers.
+        /// </summary>
+        public void Resume()
+        {
+            _rdpSession.Resume();
+        }
+
+        /// <summary>
+        /// Connects the viewer from the sharer in reverse connect mode if the viewer cannot connect to the sharer because 
+        /// of a network issue. For example, the viewer may not be able to connect to the sharer because of network address translation (NAT).
+        /// </summary>
+        /// <param name="connectionString">Connection string that the viewer sends to the sharer out-of-band through IM or email.</param>
+        public void ConnectToClient(string connectionString)
+        {
+            _rdpSession.ConnectToClient(connectionString);
         }
 
         /// <summary>
@@ -44,8 +113,21 @@ namespace Rdp.Terminal.Core.Server
             return invitation.ConnectionString;
         }
 
+        /// <inheritdoc/>
+        public void Dispose()
+        {
+            try
+            {
+                _rdpSession?.Close();
+            }
+            catch
+            {
+            }
+        }
+
         private void OnAttendeeConnected(object pAttendee)
         {
+            // TODO Make overridable
             var attendee = (IRDPSRAPIAttendee)pAttendee;
             attendee.ControlLevel = CTRL_LEVEL.CTRL_LEVEL_INTERACTIVE;
         }

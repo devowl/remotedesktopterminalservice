@@ -11,6 +11,11 @@ namespace Rdp.Terminal.Core.Client.Data
     public interface IRemoteTerminal
     {
         /// <summary>
+        /// Enable smart scaling.
+        /// </summary>
+        bool SmartSizing { get; set; }
+
+        /// <summary>
         /// Starts the actual connection to the sharer.
         /// </summary>
         /// <param name="connectionString">The connection string used to connect to the sharer and authenticate the viewer.</param>

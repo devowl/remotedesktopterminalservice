@@ -11,10 +11,16 @@ namespace Rdp.Terminal.Core.Client.Models
     {
         private RemoteTeminalManager _manager;
 
+        /// <summary>
+        /// Enable view scaling.
+        /// </summary>
+        public bool SmartSizing { get; set; }
+
         /// <inheritdoc/>
         public void Connect(string connectionString, string groupName, string passowrd)
         {
             CheckValid();
+            _manager.SmartSizing = SmartSizing;
             _manager.Connect(connectionString, groupName, passowrd);
         }
 
@@ -22,6 +28,7 @@ namespace Rdp.Terminal.Core.Client.Models
         public string StartReverseConnectListener(string connectionString, string groupName, string passowrd)
         {
             CheckValid();
+            _manager.SmartSizing = SmartSizing;
             return _manager.StartReverseConnectListener(connectionString, groupName, passowrd);
         }
 
@@ -40,10 +47,10 @@ namespace Rdp.Terminal.Core.Client.Models
 
         internal void Detach()
         {
-            if (_manager != null)
-            {
-                _manager = null;
-            }
+            //if (_manager != null)
+            //{
+            //    _manager = null;
+            //}
         }
 
         private void CheckValid()

@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 
 using Rdp.Demostration.Prism;
 using Rdp.Demostration.Views;
 using Rdp.Terminal.Core.Client.Models;
 using Rdp.Terminal.Core.Server;
+
+using RDPCOMAPILib;
 
 namespace Rdp.Demostration.ViewModels
 {
@@ -22,10 +25,35 @@ namespace Rdp.Demostration.ViewModels
         /// </summary>
         public MainWindowViewModel()
         {
-            RdpManager = new RdpManager();
+            RdpManager = new RdpManager() { SmartSizing = true };
+
+            // RdpManager.OnConnectionTerminated += (reason, info) => SessionTerminated();
+            // RdpManager.OnGraphicsStreamPaused += (sender, args) => SessionTerminated();
+            // RdpManager.OnAttendeeDisconnected += info => SessionTerminated();
+
+            SingleStartCommand = new DelegateCommand(SingleStart);
             ConnectCommand = new DelegateCommand(Connect);
             ServerStartCommand = new DelegateCommand(ServerStart);
             CopyCommand = new DelegateCommand(Copy);
+        }
+
+        private void SingleStart(object obj)
+        {
+            var server = new RdpSessionServer();
+            server.Open();
+
+            server.ApplicationFilterEnabled = true;
+            foreach (RDPSRAPIApplication application in server.ApplicationList)
+            {
+                application.Shared = application.Name == AppDomain.CurrentDomain.FriendlyName;
+            }
+
+            ServerConnectionText = server.CreateInvitation(GroupName, Password);
+        }
+
+        private void SessionTerminated()
+        {
+            MessageBox.Show("Session terminated");
         }
 
         /// <summary>
@@ -65,6 +93,11 @@ namespace Rdp.Demostration.ViewModels
         /// Copy text command.
         /// </summary>
         public DelegateCommand CopyCommand { get; private set; }
+
+        /// <summary>
+        /// Start single window sharing.
+        /// </summary>
+        public DelegateCommand SingleStartCommand { get; private set; }
 
         /// <summary>
         /// Connect command.

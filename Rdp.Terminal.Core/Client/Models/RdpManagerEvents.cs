@@ -15,7 +15,6 @@ namespace Rdp.Terminal.Core.Client.Models
     /// <remarks>https://msdn.microsoft.com/en-us/library/aa373879(v=vs.85).aspx</remarks>
     public partial class RdpManager
     {
-
         /// <summary>
         /// Called when an application closes.
         /// </summary>
