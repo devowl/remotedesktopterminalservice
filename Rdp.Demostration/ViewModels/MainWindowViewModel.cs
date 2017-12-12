@@ -15,6 +15,8 @@ namespace Rdp.Demostration.ViewModels
     {
         private string _serverConnectionText;
 
+        private string _teminalEventText;
+
         /// <summary>
         /// Constructor <see cref="MainWindowViewModel"/>.
         /// </summary>
@@ -69,6 +71,23 @@ namespace Rdp.Demostration.ViewModels
         /// </summary>
         public DelegateCommand ConnectCommand { get; private set; }
 
+        /// <summary>
+        /// Terminal events text.
+        /// </summary>
+        public string TeminalEventText
+        {
+            get
+            {
+                return _teminalEventText;
+            }
+
+            set
+            {
+                _teminalEventText = value;
+                RaisePropertyChanged(() => TeminalEventText);
+            }
+        }
+
         private string GroupName
         {
             get
@@ -92,7 +111,7 @@ namespace Rdp.Demostration.ViewModels
 
         private void ServerStart(object obj)
         {
-            var server = new RdpServer();
+            var server = new RdpSessionServer();
             server.Open();
 
             ServerConnectionText = server.CreateInvitation(GroupName, Password);

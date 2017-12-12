@@ -6,7 +6,7 @@ namespace RDPCOMAPILib
     [ClassInterface(ClassInterfaceType.None)]
     [Guid("C116A484-4B25-4B9F-8A54-B934B06E57FA")]
     [ComImport]
-    public class RDPSRAPIApplicationClass : IRDPSRAPIApplication, RDPSRAPIApplication
+    internal class RDPSRAPIApplicationClass : IRDPSRAPIApplication, RDPSRAPIApplication
     {
         [DispId(0)]
         public virtual extern RDPSRAPIWindowList Windows {

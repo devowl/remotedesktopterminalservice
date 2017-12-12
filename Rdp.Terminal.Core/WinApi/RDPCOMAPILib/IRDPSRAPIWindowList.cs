@@ -7,7 +7,7 @@ namespace RDPCOMAPILib
     [TypeLibType(4160)]
     [Guid("8A05CE44-715A-4116-A189-A118F30A07BD")]
     [ComImport]
-    public interface IRDPSRAPIWindowList : IEnumerable
+    internal interface IRDPSRAPIWindowList : IEnumerable
     {
         [DispId(-4)]
         [TypeLibFunc(1)]

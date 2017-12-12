@@ -6,7 +6,7 @@ namespace RDPCOMAPILib
     [Guid("339B24F2-9BC0-4F16-9AAC-F165433D13D4")]
     [TypeLibType(4160)]
     [ComImport]
-    public interface IRDPSRAPISessionProperties
+    internal interface IRDPSRAPISessionProperties
     {
         [DispId(0)]
         [IndexerName("Property")]

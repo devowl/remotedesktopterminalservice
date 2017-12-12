@@ -6,7 +6,7 @@ namespace RDPCOMAPILib
     [TypeLibType(4160)]
     [Guid("41E7A09D-EB7A-436E-935D-780CA2628324")]
     [ComImport]
-    public interface IRDPSRAPIApplication
+    internal interface IRDPSRAPIApplication
     {
         [DispId(0)]
         RDPSRAPIWindowList Windows {

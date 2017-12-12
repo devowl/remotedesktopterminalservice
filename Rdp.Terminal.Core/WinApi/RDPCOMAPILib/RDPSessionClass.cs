@@ -8,7 +8,7 @@ namespace RDPCOMAPILib
     [ClassInterface(ClassInterfaceType.None)]
     [Guid("9B78F0E6-3E05-4A5B-B2E8-E743A8956B65")]
     [ComImport]
-    public class RDPSessionClass : IRDPSRAPISharingSession, RDPSession, _IRDPSessionEvents_Event
+    internal class RDPSessionClass : IRDPSRAPISharingSession, RDPSession, _IRDPSessionEvents_Event
     {
         [DispId(239)]
         public virtual extern int colordepth {

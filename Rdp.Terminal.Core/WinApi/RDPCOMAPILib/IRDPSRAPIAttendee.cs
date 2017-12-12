@@ -6,7 +6,7 @@ namespace RDPCOMAPILib
     [TypeLibType(4160)]
     [Guid("EC0671B3-1B78-4B80-A464-9132247543E3")]
     [ComImport]
-    public interface IRDPSRAPIAttendee
+    internal interface IRDPSRAPIAttendee
     {
         [DispId(201)]
         int Id { [DispId(201), MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)] get;

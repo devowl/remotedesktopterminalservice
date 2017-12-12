@@ -6,7 +6,7 @@ namespace RDPCOMAPILib
     [Guid("F74049A4-3D06-4028-8193-0A8C29BC2452")]
     [TypeLibType(4160)]
     [ComImport]
-    public interface IRDPSRAPITcpConnectionInfo
+    internal interface IRDPSRAPITcpConnectionInfo
     {
         [DispId(225)]
         int Protocol {

@@ -8,7 +8,7 @@ namespace RDPCOMAPILib
     [Guid("32BE5ED2-5C86-480F-A914-0FF8885A1B3F")]
     [TypeLibType(2)]
     [ComImport]
-    public class RDPViewerClass : IRDPSRAPIViewer, RDPViewer, _IRDPSessionEvents_Event
+    internal class RDPViewerClass : IRDPSRAPIViewer, RDPViewer, _IRDPSessionEvents_Event
     {
         [DispId(203)]
         public virtual extern RDPSRAPIAttendeeManager Attendees {

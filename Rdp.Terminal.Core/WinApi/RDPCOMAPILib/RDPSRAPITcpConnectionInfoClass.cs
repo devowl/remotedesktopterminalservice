@@ -6,7 +6,7 @@ namespace RDPCOMAPILib
     [ClassInterface(ClassInterfaceType.None)]
     [Guid("BE49DB3F-EBB6-4278-8CE0-D5455833EAEE")]
     [ComImport]
-    public class RDPSRAPITcpConnectionInfoClass : IRDPSRAPITcpConnectionInfo, RDPSRAPITcpConnectionInfo
+    internal class RDPSRAPITcpConnectionInfoClass : IRDPSRAPITcpConnectionInfo, RDPSRAPITcpConnectionInfo
     {
         [DispId(225)]
         public virtual extern int Protocol {

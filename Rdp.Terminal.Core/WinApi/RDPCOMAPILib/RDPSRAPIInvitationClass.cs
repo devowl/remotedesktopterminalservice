@@ -6,7 +6,7 @@ namespace RDPCOMAPILib
     [Guid("49174DC6-0731-4B5E-8EE1-83A63D3868FA")]
     [ClassInterface(ClassInterfaceType.None)]
     [ComImport]
-    public class RDPSRAPIInvitationClass : IRDPSRAPIInvitation, RDPSRAPIInvitation
+    internal class RDPSRAPIInvitationClass : IRDPSRAPIInvitation, RDPSRAPIInvitation
     {
         [DispId(232)]
         public virtual extern string ConnectionString {

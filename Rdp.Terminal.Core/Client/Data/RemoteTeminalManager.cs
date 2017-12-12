@@ -1,17 +1,15 @@
 ﻿using System;
-using System.Diagnostics;
 
 using AxRDPCOMAPILib;
 
 using Rdp.Terminal.Core.Client.Controls;
-using Rdp.Terminal.Core.Common;
 
 namespace Rdp.Terminal.Core.Client.Data
 {
     /// <summary>
     /// <see cref="RemoteTerminal"/> view model logic.
     /// </summary>
-    internal class RemoteTeminalManager
+    internal class RemoteTeminalManager : IRemoteTerminal
     {
         private readonly AxRDPViewer _axRdpViewer;
 
@@ -21,67 +19,42 @@ namespace Rdp.Terminal.Core.Client.Data
         /// <param name="axRdpViewer"><see cref="AxRDPViewer"/> instance.</param>
         public RemoteTeminalManager(AxRDPViewer axRdpViewer)
         {
+            if (axRdpViewer == null)
+            {
+                throw new ArgumentNullException(nameof(axRdpViewer));
+            }
+
             _axRdpViewer = axRdpViewer;
-            Initialize();
         }
 
         /// <summary>
-        /// Message status updated.
+        /// <see cref="AxRDPViewer"/> instance reference.
         /// </summary>
-        public event EventHandler<MessageArgs> OnMessageStatusUpdated;
-
-        /// <summary>
-        /// InitializeDependencyProperties host control.
-        /// </summary>
-        public void Initialize()
+        internal AxRDPViewer RdpViewer
         {
-            _axRdpViewer.OnGraphicsStreamPaused += (sender, @event) => SessionTerminated();
-            _axRdpViewer.OnAttendeeDisconnected += (sender, @event) => SessionTerminated();
-            _axRdpViewer.OnConnectionTerminated += (sender, @event) => SessionTerminated();
+            get
+            {
+                return _axRdpViewer;
+            }
         }
 
-        private void SessionTerminated()
-        {
-            
-        }
-
-        /// <summary>
-        /// Connect to remote computer.
-        /// </summary>
-        /// <param name="connectionString">Remote connection string.</param>
-        /// <param name="groupName">
-        /// The name of the group. The string must be unique for the session. Applications typically 
-        /// use the group name to separate attendees into groups that can be granted different authorization levels.
-        /// </param>
-        /// <param name="passowrd">
-        /// Password to use for authentication. The password is limited to 255 characters. You must provide the password 
-        /// to the viewer out-of-band from the ticket.
-        /// </param>
+        /// <inheritdoc/>
         public void Connect(string connectionString, string groupName, string passowrd)
         {
-            try
-            {
-                _axRdpViewer.SmartSizing = true;
-                _axRdpViewer.Connect(connectionString, groupName, passowrd);
-            }
-            catch (Exception ex)
-            {
-                MessageStatusUpdated(ex);
-                throw;
-            }
+            _axRdpViewer.SmartSizing = true;
+            _axRdpViewer.Connect(connectionString, groupName, passowrd);
         }
 
-        private void MessageStatusUpdated<TException>(TException exception) where TException : Exception
+        /// <inheritdoc/>
+        public string StartReverseConnectListener(string connectionString, string groupName, string passowrd)
         {
-            MessageStatusUpdated(exception.Message);
+            return _axRdpViewer.StartReverseConnectListener(connectionString, groupName, passowrd);
         }
 
-        private void MessageStatusUpdated(string text)
+        /// <inheritdoc/>
+        public void Disconnect()
         {
-            if (OnMessageStatusUpdated != null && !string.IsNullOrEmpty(text))
-            {
-                OnMessageStatusUpdated(this, new MessageArgs(text));
-            }
+            _axRdpViewer.Disconnect();
         }
     }
 }

@@ -7,7 +7,7 @@ namespace RDPCOMAPILib
     [Guid("BA3A37E8-33DA-4749-8DA0-07FA34DA7944")]
     [TypeLibType(4160)]
     [ComImport]
-    public interface IRDPSRAPIAttendeeManager : IEnumerable
+    internal interface IRDPSRAPIAttendeeManager : IEnumerable
     {
         [DispId(-4), TypeLibFunc(1)]
         [MethodImpl(MethodImplOptions.InternalCall)]

@@ -6,7 +6,7 @@ namespace RDPCOMAPILib
     [Guid("D20F10CA-6637-4F06-B1D5-277EA7E5160D")]
     [TypeLibType(4160)]
     [ComImport]
-    public interface IRDPSRAPIApplicationFilter
+    internal interface IRDPSRAPIApplicationFilter
     {
         [DispId(217)]
         RDPSRAPIApplicationList Applications {

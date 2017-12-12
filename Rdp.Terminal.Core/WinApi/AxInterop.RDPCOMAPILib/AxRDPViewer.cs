@@ -21,21 +21,21 @@ namespace AxRDPCOMAPILib
         {
         }
 
-        public event AxRDPCOMAPILib._IRDPSessionEvents_OnApplicationCloseEventHandler OnApplicationClose;
+        public event _IRDPSessionEvents_OnApplicationCloseEventHandler OnApplicationClose;
 
-        public event AxRDPCOMAPILib._IRDPSessionEvents_OnApplicationOpenEventHandler OnApplicationOpen;
+        public event _IRDPSessionEvents_OnApplicationOpenEventHandler OnApplicationOpen;
 
-        public event AxRDPCOMAPILib._IRDPSessionEvents_OnApplicationUpdateEventHandler OnApplicationUpdate;
+        public event _IRDPSessionEvents_OnApplicationUpdateEventHandler OnApplicationUpdate;
 
-        public event AxRDPCOMAPILib._IRDPSessionEvents_OnAttendeeConnectedEventHandler OnAttendeeConnected;
+        public event _IRDPSessionEvents_OnAttendeeConnectedEventHandler OnAttendeeConnected;
 
-        public event AxRDPCOMAPILib._IRDPSessionEvents_OnAttendeeDisconnectedEventHandler OnAttendeeDisconnected;
+        public event _IRDPSessionEvents_OnAttendeeDisconnectedEventHandler OnAttendeeDisconnected;
 
-        public event AxRDPCOMAPILib._IRDPSessionEvents_OnAttendeeUpdateEventHandler OnAttendeeUpdate;
+        public event _IRDPSessionEvents_OnAttendeeUpdateEventHandler OnAttendeeUpdate;
 
-        public event AxRDPCOMAPILib._IRDPSessionEvents_OnChannelDataReceivedEventHandler OnChannelDataReceived;
+        public event _IRDPSessionEvents_OnChannelDataReceivedEventHandler OnChannelDataReceived;
 
-        public event AxRDPCOMAPILib._IRDPSessionEvents_OnChannelDataSentEventHandler OnChannelDataSent;
+        public event _IRDPSessionEvents_OnChannelDataSentEventHandler OnChannelDataSent;
 
         public event EventHandler OnConnectionAuthenticated;
 
@@ -43,29 +43,27 @@ namespace AxRDPCOMAPILib
 
         public event EventHandler OnConnectionFailed;
 
-        public event AxRDPCOMAPILib._IRDPSessionEvents_OnConnectionTerminatedEventHandler OnConnectionTerminated;
+        public event _IRDPSessionEvents_OnConnectionTerminatedEventHandler OnConnectionTerminated;
 
-        public event AxRDPCOMAPILib._IRDPSessionEvents_OnControlLevelChangeRequestEventHandler
-            OnControlLevelChangeRequest;
+        public event _IRDPSessionEvents_OnControlLevelChangeRequestEventHandler OnControlLevelChangeRequest;
 
-        public event AxRDPCOMAPILib._IRDPSessionEvents_OnErrorEventHandler OnError;
+        public event _IRDPSessionEvents_OnErrorEventHandler OnError;
 
-        public event AxRDPCOMAPILib._IRDPSessionEvents_OnFocusReleasedEventHandler OnFocusReleased;
+        public event _IRDPSessionEvents_OnFocusReleasedEventHandler OnFocusReleased;
 
         public event EventHandler OnGraphicsStreamPaused;
 
         public event EventHandler OnGraphicsStreamResumed;
 
-        public event AxRDPCOMAPILib._IRDPSessionEvents_OnSharedDesktopSettingsChangedEventHandler
-            OnSharedDesktopSettingsChanged;
+        public event _IRDPSessionEvents_OnSharedDesktopSettingsChangedEventHandler OnSharedDesktopSettingsChanged;
 
-        public event AxRDPCOMAPILib._IRDPSessionEvents_OnSharedRectChangedEventHandler OnSharedRectChanged;
+        public event _IRDPSessionEvents_OnSharedRectChangedEventHandler OnSharedRectChanged;
 
-        public event AxRDPCOMAPILib._IRDPSessionEvents_OnWindowCloseEventHandler OnWindowClose;
+        public event _IRDPSessionEvents_OnWindowCloseEventHandler OnWindowClose;
 
-        public event AxRDPCOMAPILib._IRDPSessionEvents_OnWindowOpenEventHandler OnWindowOpen;
+        public event _IRDPSessionEvents_OnWindowOpenEventHandler OnWindowOpen;
 
-        public event AxRDPCOMAPILib._IRDPSessionEvents_OnWindowUpdateEventHandler OnWindowUpdate;
+        public event _IRDPSessionEvents_OnWindowUpdateEventHandler OnWindowUpdate;
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -250,7 +248,7 @@ namespace AxRDPCOMAPILib
         {
             if (this.OnApplicationClose != null)
             {
-                this.OnApplicationClose(sender, e);
+                this.OnApplicationClose(e);
             }
         }
 
@@ -258,7 +256,7 @@ namespace AxRDPCOMAPILib
         {
             if (this.OnApplicationOpen != null)
             {
-                this.OnApplicationOpen(sender, e);
+                this.OnApplicationOpen(e);
             }
         }
 
@@ -266,7 +264,7 @@ namespace AxRDPCOMAPILib
         {
             if (this.OnApplicationUpdate != null)
             {
-                this.OnApplicationUpdate(sender, e);
+                this.OnApplicationUpdate(e);
             }
         }
 
@@ -274,7 +272,7 @@ namespace AxRDPCOMAPILib
         {
             if (this.OnAttendeeConnected != null)
             {
-                this.OnAttendeeConnected(sender, e);
+                this.OnAttendeeConnected(e);
             }
         }
 
@@ -282,7 +280,7 @@ namespace AxRDPCOMAPILib
         {
             if (this.OnAttendeeDisconnected != null)
             {
-                this.OnAttendeeDisconnected(sender, e);
+                this.OnAttendeeDisconnected(e);
             }
         }
 
@@ -290,7 +288,7 @@ namespace AxRDPCOMAPILib
         {
             if (this.OnAttendeeUpdate != null)
             {
-                this.OnAttendeeUpdate(sender, e);
+                this.OnAttendeeUpdate(e);
             }
         }
 
@@ -298,7 +296,7 @@ namespace AxRDPCOMAPILib
         {
             if (this.OnChannelDataReceived != null)
             {
-                this.OnChannelDataReceived(sender, e);
+                this.OnChannelDataReceived(e.pChannel, e.lAttendeeId, e.bstrData);
             }
         }
 
@@ -306,7 +304,7 @@ namespace AxRDPCOMAPILib
         {
             if (this.OnChannelDataSent != null)
             {
-                this.OnChannelDataSent(sender, e);
+                this.OnChannelDataSent(e.pChannel, e.lAttendeeId, e.bytesSent);
             }
         }
 
@@ -338,7 +336,7 @@ namespace AxRDPCOMAPILib
         {
             if (this.OnConnectionTerminated != null)
             {
-                this.OnConnectionTerminated(sender, e);
+                this.OnConnectionTerminated(e.discReason, e.extendedInfo);
             }
         }
 
@@ -348,7 +346,7 @@ namespace AxRDPCOMAPILib
         {
             if (this.OnControlLevelChangeRequest != null)
             {
-                this.OnControlLevelChangeRequest(sender, e);
+                this.OnControlLevelChangeRequest(e.pAttendee, e.requestedLevel);
             }
         }
 
@@ -356,7 +354,7 @@ namespace AxRDPCOMAPILib
         {
             if (this.OnError != null)
             {
-                this.OnError(sender, e);
+                this.OnError(e);
             }
         }
 
@@ -364,7 +362,7 @@ namespace AxRDPCOMAPILib
         {
             if (this.OnFocusReleased != null)
             {
-                this.OnFocusReleased(sender, e);
+                this.OnFocusReleased(e.iDirection);
             }
         }
 
@@ -390,7 +388,7 @@ namespace AxRDPCOMAPILib
         {
             if (this.OnSharedDesktopSettingsChanged != null)
             {
-                this.OnSharedDesktopSettingsChanged(sender, e);
+                this.OnSharedDesktopSettingsChanged(e.width, e.height, e.colordepth);
             }
         }
 
@@ -398,7 +396,7 @@ namespace AxRDPCOMAPILib
         {
             if (this.OnSharedRectChanged != null)
             {
-                this.OnSharedRectChanged(sender, e);
+                this.OnSharedRectChanged(e.left, e.top, e.right, e.bottom);
             }
         }
 
@@ -406,7 +404,7 @@ namespace AxRDPCOMAPILib
         {
             if (this.OnWindowClose != null)
             {
-                this.OnWindowClose(sender, e);
+                this.OnWindowClose(e.pWindow);
             }
         }
 
@@ -414,7 +412,7 @@ namespace AxRDPCOMAPILib
         {
             if (this.OnWindowOpen != null)
             {
-                this.OnWindowOpen(sender, e);
+                this.OnWindowOpen(e);
             }
         }
 
@@ -422,7 +420,7 @@ namespace AxRDPCOMAPILib
         {
             if (this.OnWindowUpdate != null)
             {
-                this.OnWindowUpdate(sender, e);
+                this.OnWindowUpdate(e);
             }
         }
 

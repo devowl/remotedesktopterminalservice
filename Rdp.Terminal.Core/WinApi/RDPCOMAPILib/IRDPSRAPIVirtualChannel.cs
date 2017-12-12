@@ -6,7 +6,7 @@ namespace RDPCOMAPILib
     [Guid("05E12F95-28B3-4C9A-8780-D0248574A1E0")]
     [TypeLibType(4160)]
     [ComImport]
-    public interface IRDPSRAPIVirtualChannel
+    internal interface IRDPSRAPIVirtualChannel
     {
         [DispId(110)]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

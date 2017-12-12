@@ -7,7 +7,7 @@ namespace RDPCOMAPILib
     [Guid("D7B13A01-F7D4-42A6-8595-12FC8C24E851")]
     [ClassInterface(ClassInterfaceType.None)]
     [ComImport]
-    public class RDPSRAPIAttendeeManagerClass : IRDPSRAPIAttendeeManager, RDPSRAPIAttendeeManager, IEnumerable
+    internal class RDPSRAPIAttendeeManagerClass : IRDPSRAPIAttendeeManager, RDPSRAPIAttendeeManager, IEnumerable
     {
         [DispId(0)]
         public virtual extern RDPSRAPIAttendee this[[In] int Id] {

@@ -6,7 +6,7 @@ namespace RDPCOMAPILib
     [ComVisible(false)]
     [TypeLibType(TypeLibTypeFlags.FHidden)]
     [ComEventInterface(typeof(_IRDPSessionEvents), typeof(_IRDPSessionEvents_EventProvider))]
-    public interface _IRDPSessionEvents_Event
+    internal interface _IRDPSessionEvents_Event
     {
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         void add_OnAttendeeConnected([In] _IRDPSessionEvents_OnAttendeeConnectedEventHandler obj0);

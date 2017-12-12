@@ -7,7 +7,7 @@ namespace RDPCOMAPILib
     [TypeLibType(4096)]
     [InterfaceType(2)]
     [ComImport]
-    public interface _IRDPSessionEvents
+    internal interface _IRDPSessionEvents
     {
         [DispId(301)]
         [MethodImpl(MethodImplOptions.PreserveSig | MethodImplOptions.InternalCall,

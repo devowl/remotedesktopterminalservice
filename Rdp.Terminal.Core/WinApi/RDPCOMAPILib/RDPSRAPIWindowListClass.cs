@@ -7,7 +7,7 @@ namespace RDPCOMAPILib
     [ClassInterface(ClassInterfaceType.None)]
     [Guid("9C21E2B8-5DD4-42CC-81BA-1C099852E6FA")]
     [ComImport]
-    public class RDPSRAPIWindowListClass : IRDPSRAPIWindowList, RDPSRAPIWindowList, IEnumerable
+    internal class RDPSRAPIWindowListClass : IRDPSRAPIWindowList, RDPSRAPIWindowList, IEnumerable
     {
         [DispId(0)]
         public virtual extern RDPSRAPIWindow this[[In] int Item] {

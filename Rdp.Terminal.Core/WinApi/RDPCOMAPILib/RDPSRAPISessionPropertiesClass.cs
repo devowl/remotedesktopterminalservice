@@ -6,7 +6,7 @@ namespace RDPCOMAPILib
     [Guid("DD7594FF-EA2A-4C06-8FDF-132DE48B6510")]
     [ClassInterface(ClassInterfaceType.None)]
     [ComImport]
-    public class RDPSRAPISessionPropertiesClass : IRDPSRAPISessionProperties, RDPSRAPISessionProperties
+    internal class RDPSRAPISessionPropertiesClass : IRDPSRAPISessionProperties, RDPSRAPISessionProperties
     {
         [DispId(0)]
         [IndexerName("Property")]

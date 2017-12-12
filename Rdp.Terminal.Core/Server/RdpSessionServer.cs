@@ -5,7 +5,7 @@ namespace Rdp.Terminal.Core.Server
     /// <summary>
     /// RDP server hosting provider.
     /// </summary>
-    public class RdpServer
+    public class RdpSessionServer
     {
         private RDPSession _rdpSession;
         

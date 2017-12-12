@@ -7,7 +7,7 @@ namespace RDPCOMAPILib
     [Guid("53D9C9DB-75AB-4271-948A-4C4EB36A8F2B")]
     [ClassInterface(ClassInterfaceType.None)]
     [ComImport]
-    public class RDPSRAPIInvitationManagerClass : IRDPSRAPIInvitationManager, RDPSRAPIInvitationManager, IEnumerable
+    internal class RDPSRAPIInvitationManagerClass : IRDPSRAPIInvitationManager, RDPSRAPIInvitationManager, IEnumerable
     {
         [DispId(244)]
         public virtual extern int Count {

@@ -6,7 +6,7 @@ namespace RDPCOMAPILib
     [Guid("E35ACE89-C7E8-427E-A4F9-B9DA072826BD")]
     [ClassInterface(ClassInterfaceType.None)]
     [ComImport]
-    public class RDPSRAPIApplicationFilterClass : IRDPSRAPIApplicationFilter, RDPSRAPIApplicationFilter
+    internal class RDPSRAPIApplicationFilterClass : IRDPSRAPIApplicationFilter, RDPSRAPIApplicationFilter
     {
         [DispId(217)]
         public virtual extern RDPSRAPIApplicationList Applications {

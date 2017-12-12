@@ -6,7 +6,7 @@ namespace RDPCOMAPILib
     [Guid("C187689F-447C-44A1-9C14-FFFBB3B7EC17")]
     [TypeLibType(4160)]
     [ComImport]
-    public interface IRDPSRAPIAttendeeDisconnectInfo
+    internal interface IRDPSRAPIAttendeeDisconnectInfo
     {
         [DispId(0)]
         RDPSRAPIAttendee Attendee {

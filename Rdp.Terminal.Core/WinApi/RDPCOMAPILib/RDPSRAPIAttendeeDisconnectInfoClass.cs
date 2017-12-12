@@ -6,7 +6,7 @@ namespace RDPCOMAPILib
     [Guid("B47D7250-5BDB-405D-B487-CAAD9C56F4F8")]
     [ClassInterface(ClassInterfaceType.None)]
     [ComImport]
-    public class RDPSRAPIAttendeeDisconnectInfoClass : IRDPSRAPIAttendeeDisconnectInfo, RDPSRAPIAttendeeDisconnectInfo
+    internal class RDPSRAPIAttendeeDisconnectInfoClass : IRDPSRAPIAttendeeDisconnectInfo, RDPSRAPIAttendeeDisconnectInfo
     {
         [DispId(0)]
         public virtual extern RDPSRAPIAttendee Attendee {

@@ -7,7 +7,7 @@ namespace RDPCOMAPILib
     [Guid("0D11C661-5D0D-4EE4-89DF-2166AE1FDFED")]
     [TypeLibType(4160)]
     [ComImport]
-    public interface IRDPSRAPIVirtualChannelManager : IEnumerable
+    internal interface IRDPSRAPIVirtualChannelManager : IEnumerable
     {
         [DispId(-4), TypeLibFunc(1)]
         [MethodImpl(MethodImplOptions.InternalCall)]

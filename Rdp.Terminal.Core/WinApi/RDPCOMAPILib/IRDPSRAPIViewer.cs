@@ -6,7 +6,7 @@ namespace RDPCOMAPILib
     [TypeLibType(4160)]
     [Guid("C6BFCD38-8CE9-404D-8AE8-F31D00C65CB5")]
     [ComImport]
-    public interface IRDPSRAPIViewer
+    internal interface IRDPSRAPIViewer
     {
         [DispId(104)]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

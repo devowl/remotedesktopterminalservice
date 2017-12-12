@@ -4,7 +4,7 @@ namespace RDPCOMAPILib
 {
     [TypeLibType(TypeLibTypeFlags.FHidden)]
     [ClassInterface(ClassInterfaceType.None)]
-    public sealed class _IRDPSessionEvents_SinkHelper : _IRDPSessionEvents
+    internal sealed class _IRDPSessionEvents_SinkHelper : _IRDPSessionEvents
     {
         public _IRDPSessionEvents_OnAttendeeConnectedEventHandler m_OnAttendeeConnectedDelegate;
 

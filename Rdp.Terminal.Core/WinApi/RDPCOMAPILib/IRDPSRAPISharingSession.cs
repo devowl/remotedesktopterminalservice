@@ -6,7 +6,7 @@ namespace RDPCOMAPILib
     [TypeLibType(4160)]
     [Guid("EEB20886-E470-4CF6-842B-2739C0EC5CFB")]
     [ComImport]
-    public interface IRDPSRAPISharingSession
+    internal interface IRDPSRAPISharingSession
     {
         [DispId(100)]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
