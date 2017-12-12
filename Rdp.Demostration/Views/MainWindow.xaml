@@ -1,0 +1,80 @@
+﻿<Window x:Class="Rdp.Demostration.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Rdp.Demostration"
+        xmlns:viewModels="clr-namespace:Rdp.Demostration.ViewModels"
+        xmlns:controls="clr-namespace:Rdp.Terminal.Core.Client.Controls;assembly=Rdp.Terminal.Core"
+        mc:Ignorable="d" d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel}"
+        Title="MainWindow" Height="350" Width="525" x:Name="Window">
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Label Content="What's my role?" Margin="5"/>
+            <ToggleButton Content="Server" Margin="5" x:Name="ServerButton" IsChecked="False"/>
+            <ToggleButton Content="Client" Margin="5" x:Name="ClientButton" IsChecked="False"/>
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=ClientButton, Path=IsChecked}" Value="False" />
+                                <Condition Binding="{Binding ElementName=ServerButton, Path=IsChecked}" Value="False" />
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter Property="Visibility" Value="Visible" />
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+        </StackPanel>
+        <Grid>
+            <!-- Client mode. We are gonna to connect to someone -->
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=ClientButton, Path=IsChecked}" Value="True">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <controls:RemoteTerminal DataContext="{Binding ElementName=Window, Path=DataContext}" RdpManager="{Binding RdpManager, Mode=TwoWay}" />
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Content="Connect" Command="{Binding ConnectCommand}" Margin="5"/>
+                <TextBox Grid.Column="1" Text="{Binding ConnectionText}" Margin="5"/>
+            </Grid>
+        </Grid>
+        <Grid>
+            <!-- Server mode -->
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=ServerButton, Path=IsChecked}" Value="True">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <StackPanel VerticalAlignment="Center" Orientation="Vertical">
+                <TextBox Text="{Binding ServerConnectionText}" Margin="5" IsReadOnly="True" TextWrapping="Wrap" AcceptsReturn="True" Height="200"/>
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Start" Command="{Binding ServerStartCommand}" Margin="5" Width="150"/>
+                    <Button Content="Copy" Command="{Binding CopyCommand}" Margin="5" Width="150"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,15 @@
+﻿namespace RDPCOMAPILib
+{
+    public enum __MIDL___MIDL_itf_rdpencomapi_0000_0001_0002
+    {
+        ATTENDEE_DISCONNECT_REASON_APP = 0,
+
+        ATTENDEE_DISCONNECT_REASON_MIN = 0,
+
+        ATTENDEE_DISCONNECT_REASON_ERR = 1,
+
+        ATTENDEE_DISCONNECT_REASON_CLI = 2,
+
+        ATTENDEE_DISCONNECT_REASON_MAX = 2,
+    }
+}
