@@ -27,17 +27,6 @@ namespace Rdp.Terminal.Core.Client.Data
             _axRdpViewer = axRdpViewer;
         }
 
-        /// <summary>
-        /// <see cref="AxRDPViewer"/> instance reference.
-        /// </summary>
-        internal AxRDPViewer RdpViewer
-        {
-            get
-            {
-                return _axRdpViewer;
-            }
-        }
-
         /// <inheritdoc/>
         public bool SmartSizing
         {
@@ -49,6 +38,17 @@ namespace Rdp.Terminal.Core.Client.Data
             set
             {
                 _axRdpViewer.SmartSizing = value;
+            }
+        }
+
+        /// <summary>
+        /// <see cref="AxRDPViewer"/> instance reference.
+        /// </summary>
+        internal AxRDPViewer RdpViewer
+        {
+            get
+            {
+                return _axRdpViewer;
             }
         }
 

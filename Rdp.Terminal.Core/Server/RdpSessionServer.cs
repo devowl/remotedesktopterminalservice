@@ -24,14 +24,6 @@ namespace Rdp.Terminal.Core.Server
         }
 
         /// <summary>
-        /// Puts the session in an active state and starts listening to incoming connections.
-        /// </summary>
-        public void Open()
-        {
-            _rdpSession.Open();
-        }
-
-        /// <summary>
         /// The enabled state of the application filter.
         /// </summary>
         public bool ApplicationFilterEnabled
@@ -60,7 +52,15 @@ namespace Rdp.Terminal.Core.Server
                 return _rdpSession.ApplicationFilter.Applications;
             }
         }
-        
+
+        /// <summary>
+        /// Puts the session in an active state and starts listening to incoming connections.
+        /// </summary>
+        public void Open()
+        {
+            _rdpSession.Open();
+        }
+
         /// <summary>
         /// Puts the session in an inactive state, closes all attendees, and stops listening to new incoming connections.
         /// </summary>

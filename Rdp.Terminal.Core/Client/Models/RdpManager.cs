@@ -43,14 +43,12 @@ namespace Rdp.Terminal.Core.Client.Models
         {
             Detach();
             _manager = manager;
+            Subsribe();
         }
 
         internal void Detach()
         {
-            //if (_manager != null)
-            //{
-            //    _manager = null;
-            //}
+            _manager = null;
         }
 
         private void CheckValid()

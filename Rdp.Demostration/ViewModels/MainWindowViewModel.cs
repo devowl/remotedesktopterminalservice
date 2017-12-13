@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Windows;
 
 using Rdp.Demostration.Prism;
 using Rdp.Demostration.Views;
 using Rdp.Terminal.Core.Client.Models;
 using Rdp.Terminal.Core.Server;
+using Rdp.Terminal.Core.WinApi;
 
 using RDPCOMAPILib;
 
@@ -20,6 +20,8 @@ namespace Rdp.Demostration.ViewModels
 
         private string _teminalEventText;
 
+        private bool ActionChoosen = false;
+
         /// <summary>
         /// Constructor <see cref="MainWindowViewModel"/>.
         /// </summary>
@@ -27,33 +29,14 @@ namespace Rdp.Demostration.ViewModels
         {
             RdpManager = new RdpManager() { SmartSizing = true };
 
-            // RdpManager.OnConnectionTerminated += (reason, info) => SessionTerminated();
-            // RdpManager.OnGraphicsStreamPaused += (sender, args) => SessionTerminated();
-            // RdpManager.OnAttendeeDisconnected += info => SessionTerminated();
+            RdpManager.OnConnectionTerminated += (reason, info) => SessionTerminated();
+            RdpManager.OnGraphicsStreamPaused += (sender, args) => SessionTerminated();
+            RdpManager.OnAttendeeDisconnected += info => SessionTerminated();
 
-            SingleStartCommand = new DelegateCommand(SingleStart);
+            SingleStartCommand = new DelegateCommand(SingleStart, o => !ActionChoosen);
             ConnectCommand = new DelegateCommand(Connect);
-            ServerStartCommand = new DelegateCommand(ServerStart);
+            ServerStartCommand = new DelegateCommand(ServerStart, o => !ActionChoosen);
             CopyCommand = new DelegateCommand(Copy);
-        }
-
-        private void SingleStart(object obj)
-        {
-            var server = new RdpSessionServer();
-            server.Open();
-
-            server.ApplicationFilterEnabled = true;
-            foreach (RDPSRAPIApplication application in server.ApplicationList)
-            {
-                application.Shared = application.Name == AppDomain.CurrentDomain.FriendlyName;
-            }
-
-            ServerConnectionText = server.CreateInvitation(GroupName, Password);
-        }
-
-        private void SessionTerminated()
-        {
-            MessageBox.Show("Session terminated");
         }
 
         /// <summary>
@@ -137,6 +120,39 @@ namespace Rdp.Demostration.ViewModels
             }
         }
 
+        private void SingleStart(object obj)
+        {
+            if (!SupportUtils.CheckOperationSytem())
+            {
+                UnsupportingVersion();
+                return;
+            }
+
+            var server = new RdpSessionServer();
+            server.Open();
+
+            server.ApplicationFilterEnabled = true;
+            foreach (RDPSRAPIApplication application in server.ApplicationList)
+            {
+                application.Shared = application.Name == AppDomain.CurrentDomain.FriendlyName;
+            }
+
+            ServerConnectionText = server.CreateInvitation(GroupName, Password);
+
+            ConnectCommand.RaiseCanExecuteChanged();
+            SingleStartCommand.RaiseCanExecuteChanged();
+        }
+
+        private void UnsupportingVersion()
+        {
+            MessageBox.Show("Support from Windows Vista only");
+        }
+
+        private void SessionTerminated()
+        {
+            MessageBox.Show("Session terminated");
+        }
+
         private void Copy(object obj)
         {
             Clipboard.SetText(ServerConnectionText);
@@ -144,10 +160,19 @@ namespace Rdp.Demostration.ViewModels
 
         private void ServerStart(object obj)
         {
+            if (!SupportUtils.CheckOperationSytem())
+            {
+                UnsupportingVersion();
+                return;
+            }
+
             var server = new RdpSessionServer();
             server.Open();
 
             ServerConnectionText = server.CreateInvitation(GroupName, Password);
+
+            ConnectCommand.RaiseCanExecuteChanged();
+            SingleStartCommand.RaiseCanExecuteChanged();
         }
 
         private void Connect(object obj)

@@ -168,6 +168,7 @@
     <Compile Include="WinApi\RDPCOMAPILib\__MIDL___MIDL_itf_rdpencomapi_0000_0001_0007.cs" />
     <Compile Include="WinApi\RDPCOMAPILib\__MIDL___MIDL_itf_rdpencomapi_0000_0001_0008.cs" />
     <Compile Include="WinApi\RDPCOMAPILib\__MIDL___MIDL_itf_rdpencomapi_0000_0001_0009.cs" />
+    <Compile Include="WinApi\SupportUtils.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
