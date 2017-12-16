@@ -57,7 +57,6 @@
     <Compile Include="Client\Data\RemoteTeminalManager.cs" />
     <Compile Include="Client\Models\RdpManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Server\ApplicationFilterCallback.cs" />
     <Compile Include="Server\RdpSessionServer.cs" />
     <Compile Include="WinApi\AxInterop.RDPCOMAPILib\AxRDPViewer.cs">
       <SubType>Component</SubType>
