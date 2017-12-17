@@ -20,7 +20,7 @@ namespace Rdp.Demostration.ViewModels
 
         private string _teminalEventText;
 
-        private bool ActionChoosen = false;
+        private bool _actionChoosen = false;
 
         /// <summary>
         /// Constructor <see cref="MainWindowViewModel"/>.
@@ -33,9 +33,9 @@ namespace Rdp.Demostration.ViewModels
             RdpManager.OnGraphicsStreamPaused += (sender, args) => SessionTerminated();
             RdpManager.OnAttendeeDisconnected += info => SessionTerminated();
 
-            SingleStartCommand = new DelegateCommand(SingleStart, o => !ActionChoosen);
+            SingleStartCommand = new DelegateCommand(SingleStart, o => !_actionChoosen);
             ConnectCommand = new DelegateCommand(Connect);
-            ServerStartCommand = new DelegateCommand(ServerStart, o => !ActionChoosen);
+            ServerStartCommand = new DelegateCommand(ServerStart, o => !_actionChoosen);
             CopyCommand = new DelegateCommand(Copy);
         }
 
@@ -140,9 +140,7 @@ namespace Rdp.Demostration.ViewModels
             }
 
             ServerConnectionText = server.CreateInvitation(GroupName, Password);
-
-            ConnectCommand.RaiseCanExecuteChanged();
-            SingleStartCommand.RaiseCanExecuteChanged();
+            ServerStarted();
         }
 
         private string GetApplicationName(string fileName)
@@ -181,7 +179,11 @@ namespace Rdp.Demostration.ViewModels
             server.Open();
 
             ServerConnectionText = server.CreateInvitation(GroupName, Password);
+        }
 
+        private void ServerStarted()
+        {
+            _actionChoosen = true;
             ConnectCommand.RaiseCanExecuteChanged();
             SingleStartCommand.RaiseCanExecuteChanged();
         }

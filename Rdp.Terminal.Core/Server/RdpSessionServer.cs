@@ -13,16 +13,19 @@ namespace Rdp.Terminal.Core.Server
         /// https://msdn.microsoft.com/en-us/library/aa373307(v=vs.85).aspx.
         /// </summary>
         private readonly RDPSession _rdpSession;
-
+        
         /// <summary>
         /// Constructor <see cref="RdpSessionServer"/>.
         /// </summary>
         public RdpSessionServer()
         {
+            // Specifies the color depth of the session in bits per pixel (bpp). The color depth is always 32. If you specify any other value, the color depth is set to 32 bpp.
+            // Windows Server 2008 R2: Possible values are 16 and 24.If you specify a value of 8, the color depth is set to 16 bpp.
+            // Windows Server 2008 and Windows Vista: Possible values are 8, 16, and 24 bpp.
             _rdpSession = new RDPSession { colordepth = 8 };
             _rdpSession.add_OnAttendeeConnected(OnAttendeeConnected);
         }
-
+        
         /// <summary>
         /// The enabled state of the application filter.
         /// </summary>
@@ -118,7 +121,15 @@ namespace Rdp.Terminal.Core.Server
         {
             try
             {
-                _rdpSession?.Close();
+                if (_rdpSession != null)
+                {
+                    foreach (IRDPSRAPIAttendee attendees in _rdpSession.Attendees)
+                    {
+                        attendees.TerminateConnection();
+                    }
+
+                    _rdpSession.Close();
+                }
             }
             catch
             {
