@@ -131,16 +131,27 @@ namespace Rdp.Demostration.ViewModels
             var server = new RdpSessionServer();
             server.Open();
 
+            var executableName = GetApplicationName(AppDomain.CurrentDomain.FriendlyName);
+            
             server.ApplicationFilterEnabled = true;
             foreach (RDPSRAPIApplication application in server.ApplicationList)
             {
-                application.Shared = application.Name == AppDomain.CurrentDomain.FriendlyName;
+                application.Shared = GetApplicationName(application.Name) == executableName;
             }
 
             ServerConnectionText = server.CreateInvitation(GroupName, Password);
 
             ConnectCommand.RaiseCanExecuteChanged();
             SingleStartCommand.RaiseCanExecuteChanged();
+        }
+
+        private string GetApplicationName(string fileName)
+        {
+            const string Executable = ".exe";
+
+            return fileName.EndsWith(Executable)
+                ? fileName.Substring(0, fileName.Length - Executable.Length)
+                : fileName;
         }
 
         private void UnsupportingVersion()
