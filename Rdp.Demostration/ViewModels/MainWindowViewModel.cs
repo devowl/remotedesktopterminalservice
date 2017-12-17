@@ -179,12 +179,13 @@ namespace Rdp.Demostration.ViewModels
             server.Open();
 
             ServerConnectionText = server.CreateInvitation(GroupName, Password);
+            ServerStarted();
         }
 
         private void ServerStarted()
         {
             _actionChoosen = true;
-            ConnectCommand.RaiseCanExecuteChanged();
+            ServerStartCommand.RaiseCanExecuteChanged();
             SingleStartCommand.RaiseCanExecuteChanged();
         }
 
