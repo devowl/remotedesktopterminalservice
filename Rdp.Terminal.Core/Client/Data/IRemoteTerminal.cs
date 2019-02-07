@@ -1,4 +1,6 @@
-﻿namespace Rdp.Terminal.Core.Client.Data
+﻿using System.IO;
+
+namespace Rdp.Terminal.Core.Client.Data
 {
     /// <summary>
     /// Rdp viewer interaction methods.
@@ -31,6 +33,12 @@
         /// </returns>
         /// <remarks>https://msdn.microsoft.com/en-us/library/aa373359(v=vs.85).aspx</remarks>
         string StartReverseConnectListener(string connectionString, string groupName, string passowrd);
+
+        /// <summary>
+        /// Send file.
+        /// </summary>
+        /// <param name="file">File bytes.</param>
+        void SendFile(byte[] file);
 
         /// <summary>
         /// Initiates a disconnect of the viewer from the sharer.

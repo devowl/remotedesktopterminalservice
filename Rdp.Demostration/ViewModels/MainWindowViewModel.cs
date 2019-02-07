@@ -1,5 +1,8 @@
 ﻿using System;
+using System.IO;
 using System.Windows;
+
+using Microsoft.Win32;
 
 using Rdp.Demostration.Prism;
 using Rdp.Demostration.Views;
@@ -37,6 +40,7 @@ namespace Rdp.Demostration.ViewModels
             ConnectCommand = new DelegateCommand(Connect);
             ServerStartCommand = new DelegateCommand(ServerStart, o => !ActionChoosen);
             CopyCommand = new DelegateCommand(Copy);
+            SendFileCommand = new DelegateCommand(SendFile);
         }
 
         /// <summary>
@@ -66,6 +70,11 @@ namespace Rdp.Demostration.ViewModels
         /// RDP session manager.
         /// </summary>
         public RdpManager RdpManager { get; set; }
+        
+        /// <summary>
+        /// Send file command.
+        /// </summary>
+        public DelegateCommand SendFileCommand { get; private set; }
 
         /// <summary>
         /// Server start command.
@@ -152,6 +161,19 @@ namespace Rdp.Demostration.ViewModels
         {
             MessageBox.Show("Session terminated");
         }
+        
+        private void SendFile(object obj)
+        {
+            var dialog = new OpenFileDialog()
+            {
+                Multiselect = false
+            };
+            if (dialog.ShowDialog().GetValueOrDefault())
+            {
+                var bytes = File.ReadAllBytes(dialog.FileName);
+                RdpManager.SendFile(bytes);
+            }
+        }
 
         private void Copy(object obj)
         {
@@ -177,7 +199,14 @@ namespace Rdp.Demostration.ViewModels
 
         private void Connect(object obj)
         {
-            RdpManager.Connect(ConnectionText, GroupName, Password);
+            try
+            {
+                RdpManager.Connect(ConnectionText, GroupName, Password);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
         }
     }
 }

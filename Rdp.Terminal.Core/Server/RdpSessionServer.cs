@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 
 using RDPCOMAPILib;
 
@@ -14,15 +15,23 @@ namespace Rdp.Terminal.Core.Server
         /// </summary>
         private readonly RDPSession _rdpSession;
 
+        private readonly IRDPSRAPIVirtualChannel _fileChannel;
+         
         /// <summary>
         /// Constructor <see cref="RdpSessionServer"/>.
         /// </summary>
         public RdpSessionServer()
         {
             _rdpSession = new RDPSession { colordepth = 8 };
+            _fileChannel = _rdpSession.VirtualChannelManager.CreateVirtualChannel(
+                "File",
+                CHANNEL_PRIORITY.CHANNEL_PRIORITY_HI,
+                (uint)CHANNEL_FLAGS.CHANNEL_FLAGS_LEGACY);
+            _fileChannel.SendData("Some data", -1, (uint)CHANNEL_FLAGS.CHANNEL_FLAGS_LEGACY);
             _rdpSession.add_OnAttendeeConnected(OnAttendeeConnected);
+            _rdpSession.add_OnChannelDataReceived(OnDataRecieved);
         }
-
+        
         /// <summary>
         /// The enabled state of the application filter.
         /// </summary>
@@ -123,6 +132,11 @@ namespace Rdp.Terminal.Core.Server
             catch
             {
             }
+        }
+        
+        private void OnDataRecieved(object pchannel, int lattendeeid, string bstrdata)
+        {
+            MessageBox.Show(bstrdata);
         }
 
         private void OnAttendeeConnected(object pAttendee)
