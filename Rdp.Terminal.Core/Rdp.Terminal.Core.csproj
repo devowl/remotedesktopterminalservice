@@ -95,6 +95,9 @@
     <Compile Include="WinApi\RDPCOMAPILib\IRDPSRAPISessionProperties.cs" />
     <Compile Include="WinApi\RDPCOMAPILib\IRDPSRAPISharingSession.cs" />
     <Compile Include="WinApi\RDPCOMAPILib\IRDPSRAPITcpConnectionInfo.cs" />
+    <Compile Include="WinApi\RDPCOMAPILib\IRDPSRAPITransportStream.cs" />
+    <Compile Include="WinApi\RDPCOMAPILib\IRDPSRAPITransportStreamBuffer.cs" />
+    <Compile Include="WinApi\RDPCOMAPILib\IRDPSRAPITransportStreamEvents.cs" />
     <Compile Include="WinApi\RDPCOMAPILib\IRDPSRAPIViewer.cs" />
     <Compile Include="WinApi\RDPCOMAPILib\IRDPSRAPIVirtualChannel.cs" />
     <Compile Include="WinApi\RDPCOMAPILib\IRDPSRAPIVirtualChannelManager.cs" />
@@ -130,6 +133,10 @@
     <Compile Include="WinApi\RDPCOMAPILib\RDPSRAPIWindowListClass.cs" />
     <Compile Include="WinApi\RDPCOMAPILib\RDPSRAPI_APP_FLAGS.cs" />
     <Compile Include="WinApi\RDPCOMAPILib\RDPSRAPI_WND_FLAGS.cs" />
+    <Compile Include="WinApi\RDPCOMAPILib\RDPTransportStreamBuffer.cs" />
+    <Compile Include="WinApi\RDPCOMAPILib\RDPTransportStreamBufferClass.cs" />
+    <Compile Include="WinApi\RDPCOMAPILib\RDPTransportStreamEvents.cs" />
+    <Compile Include="WinApi\RDPCOMAPILib\RDPTransportStreamEventsClass.cs" />
     <Compile Include="WinApi\RDPCOMAPILib\RDPViewer.cs" />
     <Compile Include="WinApi\RDPCOMAPILib\RDPViewerClass.cs" />
     <Compile Include="WinApi\RDPCOMAPILib\_IRDPSessionEvents.cs" />
