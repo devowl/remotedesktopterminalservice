@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 using Rdp.Terminal.Core.Client.Data;
 
@@ -39,6 +40,12 @@ namespace Rdp.Terminal.Core.Client.Models
             _manager.Disconnect();
         }
 
+        /// <inheritdoc/>
+        public void SendFile(byte[] file)
+        {
+            _manager.SendFile(file);
+        }
+        
         internal void Attach(RemoteTeminalManager manager)
         {
             Detach();

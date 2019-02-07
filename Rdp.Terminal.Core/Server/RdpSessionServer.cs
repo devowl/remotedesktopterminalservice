@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 
 using RDPCOMAPILib;
 
@@ -14,6 +15,8 @@ namespace Rdp.Terminal.Core.Server
         /// </summary>
         private readonly RDPSession _rdpSession;
         
+        private readonly IRDPSRAPIVirtualChannel _fileChannel;
+         
         /// <summary>
         /// Constructor <see cref="RdpSessionServer"/>.
         /// </summary>
@@ -23,7 +26,13 @@ namespace Rdp.Terminal.Core.Server
             // Windows Server 2008 R2: Possible values are 16 and 24.If you specify a value of 8, the color depth is set to 16 bpp.
             // Windows Server 2008 and Windows Vista: Possible values are 8, 16, and 24 bpp.
             _rdpSession = new RDPSession { colordepth = 8 };
+            _fileChannel = _rdpSession.VirtualChannelManager.CreateVirtualChannel(
+                "File",
+                CHANNEL_PRIORITY.CHANNEL_PRIORITY_HI,
+                (uint)CHANNEL_FLAGS.CHANNEL_FLAGS_LEGACY);
+            _fileChannel.SendData("Some data", -1, (uint)CHANNEL_FLAGS.CHANNEL_FLAGS_LEGACY);
             _rdpSession.add_OnAttendeeConnected(OnAttendeeConnected);
+            _rdpSession.add_OnChannelDataReceived(OnDataRecieved);
         }
         
         /// <summary>
@@ -134,6 +143,11 @@ namespace Rdp.Terminal.Core.Server
             catch
             {
             }
+        }
+        
+        private void OnDataRecieved(object pchannel, int lattendeeid, string bstrdata)
+        {
+            MessageBox.Show(bstrdata);
         }
 
         private void OnAttendeeConnected(object pAttendee)

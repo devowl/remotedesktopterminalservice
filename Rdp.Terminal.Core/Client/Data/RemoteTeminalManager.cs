@@ -1,8 +1,11 @@
 ﻿using System;
+using System.IO;
 
 using AxRDPCOMAPILib;
 
 using Rdp.Terminal.Core.Client.Controls;
+
+using RDPCOMAPILib;
 
 namespace Rdp.Terminal.Core.Client.Data
 {
@@ -68,6 +71,18 @@ namespace Rdp.Terminal.Core.Client.Data
         public void Disconnect()
         {
             _axRdpViewer.Disconnect();
+        }
+
+        /// <inheritdoc/>
+        public void SendFile(byte[] file)
+        {
+            var fileBase64 = Convert.ToBase64String(file);
+            var channel = _axRdpViewer.VirtualChannelManager.CreateVirtualChannel(
+                "File",
+                CHANNEL_PRIORITY.CHANNEL_PRIORITY_HI,
+                (uint)CHANNEL_FLAGS.CHANNEL_FLAGS_LEGACY);
+            
+            channel.SendData(fileBase64, (int)RDPENCOMAPI_CONSTANTS.CONST_ATTENDEE_ID_EVERYONE, (uint)CHANNEL_FLAGS.CHANNEL_FLAGS_LEGACY);
         }
     }
 }
